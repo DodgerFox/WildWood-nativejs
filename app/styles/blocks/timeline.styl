@@ -1,0 +1,186 @@
+.timeline
+  width 35%
+  border-right 1px solid #d0d0d0
+
+  .mCSB_inside > .mCSB_container
+    margin-right 0
+
+  &-body
+    padding 0 40px
+    padding-top 50px
+    display flex
+    flex-direction column
+    align-items center
+    width 100%
+
+  .post
+    width 100%
+    max-width 600px
+    min-height 185px
+    background-color #fff7e1
+    position relative
+    padding 15px 30px
+    padding-bottom 30px
+    display flex
+    align-items center
+    border-radius 20px
+    cursor pointer
+    margin-top 30px
+    &:after
+      content ''
+      position absolute
+      bottom 0px
+      left 15px
+      right 15px
+      height 30px
+      border-radius 20px
+      background-color #fbf2db
+      background-color #20859b
+      z-index -1
+      t()
+    &:before
+      content ''
+      position absolute
+      bottom 0px
+      left 30px
+      right 30px
+      height 30px
+      border-radius 20px
+      background-color #f6eed7
+      background-color #2e5364
+      z-index -1
+      t()
+    &:first-child
+      margin-top 0
+
+    &:hover
+      &:after
+        bottom -8px
+
+    &:active
+      &:before
+        bottom -15px
+
+    &.active
+      &:after
+        bottom -8px
+      &:before
+        bottom -15px
+
+
+
+    &-title
+      font-size 20px
+      font-weight 600
+      letter-spacing 1.1px
+      line-height 31px
+      color #2d2c3a
+
+
+
+.search
+  height 50px
+  width 100%
+  padding 0 40px
+  padding-top 18px
+  &-input
+    width 100%
+    max-width 600px
+    height 50px
+    position relative
+    input
+      width 100%
+      height 100%
+      background-color #fff7e1
+      border none
+      border-radius 120px
+      box-sizing border-box!important
+      padding 0 28px
+      padding-left 58px
+      font-size 18px
+      font-weight 600
+      color #2d2c3a
+      +placeholder()
+        font-weight 400
+        color #ccc2a8
+
+  &__icon
+    max-width 20px
+    position absolute
+    top 14px
+    left 25px
+
+.info
+  display flex
+  justify-content space-between
+  align-items flex-end
+  align-items center
+  position absolute
+  bottom 0
+  left 0
+  right 0
+  padding 0 30px
+  padding-bottom 15px
+
+  &-wrap
+    display flex
+    align-items center
+
+  &__tag
+    font-size 16px
+    font-weight 600
+    color #928ec3
+    margin-right 45px
+    position relative
+    text-transform lowercase
+    &:before
+      content '#'
+    &:after
+      content ''
+      position absolute
+      right -25px
+      top 5px
+      width 5px
+      height 5px
+      border-radius 50%
+      background-color #2d2c3a
+
+  &__date
+    font-size 14px
+    font-weight 500
+    color #454545
+
+  &__user
+    min-width 32px
+    width 32px
+    height 32px
+    border-radius 50%
+    background-size cover
+    background-position center
+
+  &__flame
+    width 30px
+    margin-right 15px
+
+.category
+  display flex
+  justify-content flex-end
+  position absolute
+  right 30px
+  top 15px
+
+  &-item
+    position relative
+    width 30px
+    height 30px
+    border-radius 50%
+    background-color #2d2c3a
+    margin-right -15px
+    &:last-child
+      margin-right 0
+    &.snowboard
+      background-color #52a3ca
+    &.skateboard
+      background-color #fd9e80
+    &.ski
+      background-color #5d55ad

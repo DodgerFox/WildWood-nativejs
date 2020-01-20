@@ -1,0 +1,51 @@
+.content
+
+  &-wrap
+    width 100%
+    max-width 820px
+    padding 0 40px
+    padding-top 140px
+    margin 0 auto
+
+  &-info
+    display flex
+    padding-bottom 24px
+    &__item
+      font-size 14px
+      color #9c9c9c
+      margin-right 50px
+      position relative
+      font-weight 500
+      &:after
+        content ''
+        position absolute
+        right -30px
+        top 5px
+        width 5px
+        height 5px
+        border-radius 50%
+        background-color #9c9c9c
+
+      &:last-child
+        margin-right 0
+        &:after
+          display none
+
+  &-body
+    padding-bottom 60px
+    
+    h1
+      font-size 32px
+      font-weight 700
+      color #22212c
+      line-height 40px
+      padding-bottom 40px
+
+    p
+      font-size 16px
+      line-height 30px
+      padding-bottom 30px
+      color #22212c
+
+    img
+      max-width 100%

@@ -1,0 +1,74 @@
+.panel
+    position absolute
+    background #2d2c3a
+    top 0
+    bottom 0
+    width 100%
+    max-width 300px
+    left 75px
+    transform translateX(-100%)
+    padding-top 50px
+    z-index 1
+    transition 0.5s all
+    &.active
+        transform translate(0)
+    
+    &-user
+        display flex
+        flex-direction column
+        align-items center
+    
+    &-add
+        margin-top 24px
+        width 160px
+        height 35px
+        background #df8c77
+        display flex
+        align-items center
+        justify-content center
+        border-radius 5px
+        position relative
+        t()
+        &:before
+            content ''
+            position absolute
+            left 0
+            right 0
+            top 0
+            bottom 0
+            background #df8c77
+            border-radius 5px
+            z-index 1
+            t()
+        &:hover
+            &:before
+                transform scale(1.08)
+        &:active
+            &:before
+                transform scale(1.05)
+        p
+            color white
+            font-size 15px
+            font-weight 600
+            text-transform uppercase
+            letter-spacing 1px
+            position relative
+            z-index 2
+
+    
+    .user
+        &-avatar
+            width 160px
+            height 160px
+            border-radius 50%
+            border 6px solid #df8c77
+            background-color #eaeaea
+            background-position center
+            background-size cover
+        
+        &-name
+            margin-top 24px
+            font-size 20px
+            font-weight 600
+            text-transform uppercase
+            color white

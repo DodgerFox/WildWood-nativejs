@@ -1,0 +1,96 @@
+.menu
+  background-color #2d2c3a
+  position fixed
+  left 0
+  top 0
+  bottom 0
+  width 75px
+  display flex
+  flex-direction column
+  align-items center
+  padding 20px 0
+  padding-top 28px
+  box-shadow 0 0 15px -4px #595777
+  z-index 2
+
+  &-user
+    width 50px
+    height 50px
+    border-radius 50%
+    border 2px solid #fd9e80
+    background-position center
+    background-size cover
+    margin-top 40px
+    cursor pointer
+    t()
+
+  &-add
+    width 38px
+    height 38px
+    border-radius 50%
+    background-color #fd9e80
+    margin-top 20px
+    padding 7px
+    cursor pointer
+    t()
+    img
+      max-width 100%
+    &:hover
+      transform scale(1.2)
+
+.nav
+  margin-top 35px
+  width 100%
+  position relative
+
+  &__line
+    content ''
+    position absolute
+    height 43px
+    width 2px
+    left 0
+    top 0
+    background-color #52a3ca
+
+  &-list
+    display flex
+    flex-direction column
+    align-items center
+
+  &-item
+    margin-top 30px
+    cursor pointer
+    position relative
+    &:first-child
+      margin-top 5px
+
+    img
+      position relative
+      z-index 2
+
+    &__desc
+      opacity 0
+      pointer-events none
+      position absolute
+      left -15px
+      top -5px
+      bottom -5px
+      width fit-content
+      background-color #52a3ca
+      border-radius 200px
+      padding-left 45px
+      padding-right 15px
+      display flex
+      align-items center
+      t()
+    p
+      font-size 16px
+      font-weight 600
+      color white
+      margin-left 10px
+
+    &:hover
+      .nav-item__desc
+        opacity 1
+        pointer-events all
+        transition-delay 0.7s

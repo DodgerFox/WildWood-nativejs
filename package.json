@@ -1,0 +1,62 @@
+{
+  "name": "project-station",
+  "version": "1.0.0",
+  "description": "Template for creating new frontend projects.",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.2.0",
+    "malihu-custom-scrollbar-plugin": "^3.1.5",
+    "matter-js": "^0.14.2",
+    "rangeslider.js": "^2.3.3",
+    "selectize.js": "^0.12.12"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "del": "^5.1.0",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-cached": "^1.1.1",
+    "gulp-changed": "^4.0.2",
+    "gulp-combine-mq": "^0.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-filter": "^6.0.0",
+    "gulp-html-prettify": "0.0.1",
+    "gulp-if": "^3.0.0",
+    "gulp-imagemin": "^6.2.0",
+    "gulp-jscs": "^4.1.0",
+    "gulp-minify": "^3.1.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-pug": "^4.0.1",
+    "gulp-pug-inheritance": "^0.2.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-rigger": "^0.5.8",
+    "gulp-stylus": "^2.7.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-uglify-es": "^2.0.0",
+    "gulp-util": "^3.0.8",
+    "gulp4-run-sequence": "^1.0.0",
+    "jquery": "^3.4.1",
+    "require-dir": "^1.2.0",
+    "rupture": "^0.7.1",
+    "slick": "^1.12.2",
+    "slick-carousel": "^1.8.1"
+  },
+  "browsers": {
+    "android": 4,
+    "chrome": 40,
+    "firefox": 35,
+    "ie": 10,
+    "ios": 7,
+    "opera": 27,
+    "safari": 7
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https//github.com/DodgerFox/station.git"
+  },
+  "author": "Alexey Chernov",
+  "license": "ISC"
+}
