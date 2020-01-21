@@ -17,7 +17,7 @@
   },
   { 
     "id": 2, 
-    "title": "Возьму на себя разлом SanAndreas. Я в игру играл.", 
+    "title": "Так, еще одна попытка обновить борд. Что лучше для внетрасс?", 
     "author": "Mary Lee",
     "authorId": 2,
     "avatar": "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", 
@@ -47,7 +47,7 @@
   },
   {
     "id": 4, 
-    "title": "Где клубятся бомжи", 
+    "title": "Где клубятся бомжи?", 
     "author": "Mamas & Papas", 
     "authorId": 4,
     "avatar": "assets/images/face.jpg",
@@ -62,7 +62,7 @@
   },
   {
     "id": 5, 
-    "title": "Где клубятся бомжи", 
+    "title": "Московский этап Кубка мира по сноуборду в дисциплине параллельный слалом перенесен на 6 марта.", 
     "author": "Brother Sisters",
     "authorId": 5,
     "avatar": "assets/images/face.jpg", 
