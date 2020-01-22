@@ -13,7 +13,7 @@ const forum = {
       response.json().then((result) => {
         this.articles = result;
         this.catcheDOM();
-        this.render();
+        this.filter();
         this.bindEvents();
         
       })
@@ -29,8 +29,19 @@ const forum = {
     this.detail = document.querySelector('.article-wrap');
   },
   bindEvents () {
-    this.input.addEventListener('keyup', () => { this.render() })
-    this.posts.forEach((post) => {post.addEventListener('click', () => { this.openArticle(post) }) })
+    this.inputHandler()
+    this.clickHandler()
+  },
+  inputHandler () {
+    this.input.addEventListener('keyup', () => { 
+      const searchValue = this.input.value.toUpperCase();
+      (searchValue.length === 0 || searchValue.length > 1) ? this.filter() : console.log('none');
+    })
+  },
+  clickHandler () {
+    this.posts.forEach((post) => {
+      post.addEventListener('click', () => { this.openArticle(post) }) 
+    })
   },
   helpers () {
     $(".timeline").mCustomScrollbar({
@@ -78,19 +89,27 @@ const forum = {
     })
     
   },
-  render () {
-    const articlesList =  this.articles.filter((article) => {
-      return article.title.toUpperCase().indexOf(this.input.value.toUpperCase()) > -1;
+  filter () {
+    const searchValue = this.input.value.toUpperCase();
+    this.filtered =  this.articles.filter((article) => {
+      let prop = (searchValue[0] === '#') ? article.tags.toUpperCase() : article.title.toUpperCase();
+      return prop.indexOf(searchValue) > -1;
     });
-    
+    if (this.filtered.length > 0) {
+      this.render()
+    } else {
+      this.list.innerHTML = '';
+      this.list.insertAdjacentHTML("beforeEnd", "<p>Нетъ</p>");
+    }
+  },
+  render () {
     this.list.innerHTML = '';
-    
-    if (articlesList.length > 0) {
       
-      articlesList.forEach( ( article ) => {
+      this.filtered.forEach( ( article ) => {
         
         const element = 
               `<article class="post" data-id="` + article.id + `"> 
+                <div class="post-container">
                 <p class="post-title">` + article.title + `</p>
                 <div class="category">
                   <div class="category-item snowboard"></div>
@@ -109,15 +128,15 @@ const forum = {
                     <a class="info__user" href="#" style="background-image: url('` + article.avatar + `');"></a>
                   </div>
                 </div>
+                </div>
               </article>`;
-        
+      
         this.list.insertAdjacentHTML("beforeEnd", element);
       })
-    }else{
-      this.list.insertAdjacentHTML("beforeEnd", "<p>Нетъ</p>");
-    }
+    
     this.posts = document.querySelectorAll('.post');
-  },
+    this.clickHandler();
+  }
   
 }
 
