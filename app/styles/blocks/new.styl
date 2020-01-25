@@ -1,0 +1,100 @@
+.new
+    position fixed
+    left 0
+    top 0
+    right 0
+    bottom 0
+    background-color white
+    z-index 10
+    display flex
+    justify-content center
+    padding-top 100px
+    overflow-y scroll
+    textarea
+        border none
+
+    &-header
+        font-size 42px
+        line-height 46px
+        text-transform uppercase
+        font-weight 600
+        color black
+        width 100%
+        overflow hidden
+        +placeholder()
+            color #a9a9a9
+    
+    &-cats
+        margin-top 40px
+        flex()
+        t()
+
+        &__item
+            margin-right 10px
+            padding 7px 20px
+            color white
+            background-color #52a3ca
+            border-radius 30px
+            font-size 18px
+            color white
+            font-weight 600
+            cursor pointer
+            t()
+            &.snowboard
+                background-color #fd9e80
+            &:hover
+                transform rotate(180deg)
+        
+        &__add
+            height 32px
+            width 32px
+            border-radius 50%
+            background linear-gradient(15deg, #52a3ca, #5d55ad)
+            center()
+            cursor pointer
+            img
+                width 17px
+    
+    &-content
+        width 100%
+        max-width 750px
+    
+    &-center
+        width 100%
+        padding-bottom 50px
+    
+    &-item
+        width 100%
+        margin-top 32px
+        textarea
+            font-size 16px
+            line-height 26px
+            font-weight 500
+            padding 18px 20px
+            width 100%
+            border-radius 10px
+            background-color #f0f0f0
+        
+        &__container
+            border-radius 10px
+            overflow hidden
+            max-height 700px
+            center()
+            img
+                width 100%
+        
+        &.paragraph
+            textarea
+                height 62px
+    
+    &-close
+        position fixed
+        right 100px
+        top 40px
+        img
+            width 50px
+    
+    &-add
+        opacity 0
+        pointer-events none
+        position absolute

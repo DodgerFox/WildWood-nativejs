@@ -35,7 +35,7 @@ const forum = {
   inputHandler () {
     this.input.addEventListener('keyup', () => { 
       const searchValue = this.input.value.toUpperCase();
-      (searchValue.length === 0 || searchValue.length > 1) ? this.filter() : console.log('none');
+      (searchValue.length === 0 || searchValue.length > 1) ? this.filter() : '';
     })
   },
   clickHandler () {
@@ -57,9 +57,9 @@ const forum = {
   },
   openArticle (post) {
     this.detail.innerHTML = '';
-    this.posts.forEach((post) => {post.classList.remove('active');})
+    this.posts.forEach((post) => { post.classList.remove('active') })
     post.classList.toggle('active');
-    this.articles.forEach((article, id) => {
+    this.articles.forEach((article) => {
       if (article.id == post.getAttribute('data-id')){
         const header = 
           `<div class="article-header" style="background-image: url('` + article.cover + `');">
@@ -148,3 +148,5 @@ const panel = () => {
     panel.classList.toggle('active');
   })
 }
+
+
