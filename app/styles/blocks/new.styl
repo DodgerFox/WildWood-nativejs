@@ -40,6 +40,7 @@
 
         &__item
             margin-right 10px
+            margin-bottom 10px
             padding 7px 20px
             color white
             background-color #52a3ca
@@ -49,8 +50,14 @@
             font-weight 600
             cursor pointer
             t()
-            &.snowboard
+            &[data-cat="skate"]
                 background-color #fd9e80
+            &[data-cat="ski"]
+                background-color #5d55ad
+            &[data-cat="wind"]
+                background-color #52cab9
+            &[data-cat="long"]
+                background-color #ca528f
             &:hover
                 background-color #eb5353
             
@@ -62,11 +69,13 @@
             background linear-gradient(15deg, #52a3ca, #5d55ad)
             cursor pointer
             position relative
+            margin-bottom 10px
             center()
             img
                 width 17px
                 position relative
                 z-index 2
+                pointer-events none
             &:after
                 content ''
                 position absolute
@@ -76,7 +85,7 @@
                 bottom 0
                 border-radius 50%
                 background-color #52a3ca
-                transition 0.8s all
+                transition 0.6s all
             &.active
                 pointer-events none
                 img
@@ -132,6 +141,7 @@
         cursor pointer
         img
             width 50px
+            pointer-events none
     
     &-add
         opacity 0
@@ -177,6 +187,7 @@
                 img
                     max-height 30px
                     width 30px
+                    pointer-events none
         
         &.active
             ul

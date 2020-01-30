@@ -2,8 +2,8 @@
 
 window.onload = () => {
   forum.init()
-  panel.init()
-  post.init()
+  menu.init()
+  // post.init()
 }
 
 
@@ -40,8 +40,9 @@ const forum = {
     })
   },
   clickHandler () {
-    this.posts.forEach((post) => {
-      post.addEventListener('click', () => { this.openArticle(post) }) 
+    this.list.addEventListener('click', (event) => {
+      const post = event.target;
+      (post.className === 'post') ? this.openArticle(post) : '';
     })
   },
   helpers () {
@@ -136,35 +137,39 @@ const forum = {
       })
     
     this.posts = document.querySelectorAll('.post');
-    this.clickHandler();
   }
   
 }
 
 
-const panel = {
+const menu = {
   init () {
     this.catcheDOM()
     this.bindEvents()
-    this.newPost.classList.toggle('hidden');
   },
   catcheDOM () {
     this.button = document.querySelector('.menu-user');
+    this.menu = document.querySelector('.menu');
     this.panel = document.querySelector('.panel');
-    this.buttonNew = document.querySelector('.menu-add');
-    this.buttonClose = document.querySelector('.new-close');
     this.newPost = document.querySelector('.new');
   },
   bindEvents () {
-    this.button.addEventListener('click', () => {
-      this.panel.classList.toggle('active');
+    this.menu.addEventListener('click', (event) => {
+      this.clickHandler(event)      
     })
-    this.buttonNew.addEventListener('click', () => {      
-      this.newPost.classList.toggle('hidden');
-    })
-    this.buttonClose.addEventListener('click', () => {      
-      this.newPost.classList.toggle('hidden');
-    })
+  },
+  clickHandler (event) {
+    const element = event.target;
+    console.log(element);
+    
+    switch (element.className) {
+      case ('menu-add') :
+        post.init()
+        break;
+      case ('menu-user') :
+        this.panel.classList.toggle('active');
+        break;
+      }
   }
 }
 
@@ -172,81 +177,88 @@ const panel = {
 const post = {
   init () {
     this.catcheDOM()
+    this.changeState()
     this.bindEvents()
     this.textarea()
     this.newTextarea()
   },
   catcheDOM () {
-    this.body = document.querySelector('.new');
+    this.new = document.querySelector('.new');
     this.types = document.querySelectorAll('.new-add');
-    this.cats = document.querySelectorAll('.new-cats .new-cats__item');
     this.catsWrap = document.querySelector('.new-cats');    
     this.catsBtn = document.querySelector('.new-cats__add');    
     this.categoriesBody = document.querySelector('.new-categories');
-    
   },
   bindEvents () {
-    this.types.forEach((adder) => adder.addEventListener('click', () => this.openTypes(adder)))
-    this.cats.forEach((cat) => cat.addEventListener('click', () => cat.remove() ));
-    this.catsBtn.addEventListener('click', () => this.categories())
+    this.new.addEventListener('click', (event) => { this.clickHandler() })
   },
-  categories () {
-    const button = document.querySelector('.new-categories__button');
-    const categoryItems = document.querySelectorAll('.new-categories__item');
-    this.cats = document.querySelectorAll('.new-cats .new-cats__item');
-    let newItems = [];
+  clickHandler () {
+    const element = event.target;
+    
+    switch (event.target.classList[0]) {
+      case 'new-cats__item':
+        element.parentNode.removeChild(element)
+        break;
+      case 'new-cats__add':
+        this.newCategory()
+        break;
+      case 'new-categories__item':
+        this.markCategory(element)
+        break;
+      case 'new-categories__button':
+        this.addCategory(element)
+        break;
+      case 'new-add':
+        this.openTypes(element)
+        break;
+      case 'new-close':
+        this.changeState()
+        break;
+    }
+  },
+  openCategories () {
     this.catsBtn.classList.toggle('active')
     this.categoriesBody.classList.toggle('active')
+  },
+  newCategory () {
+    const categoryItems = document.querySelectorAll('.new-categories__item');
+    this.cats = document.querySelectorAll('.new-cats .new-cats__item');
+    this.newItems = [];
+    this.openCategories()
 
     categoryItems.forEach(categoryItem => {
 
       this.cats.forEach(cat => {
-        if (categoryItem.classList.contains(cat.getAttribute('data-cat'))) {
-          newItems.push(cat.getAttribute('data-cat'))
+        if (categoryItem.getAttribute('data-cat') === cat.getAttribute('data-cat')) {
+          this.newItems.push(cat.getAttribute('data-cat'))
           categoryItem.classList.add('choise')
         };
       })
-
-      categoryItem.addEventListener('click', () => {
-        if (categoryItem.classList.contains('choise')){
-          const index = newItems.indexOf(categoryItem.getAttribute('data-cat'));
-          function removeInArray(arr, ...args){
-            var set = new Set(args); 
-            return arr.filter((v, k) => !set.has(k));
-          }
-          newItems = removeInArray(newItems, index);
-          console.log('yes');
-          
-          
-        }else{
-          newItems.push(categoryItem.getAttribute('data-cat'))
-          console.log('no');
-          
-        }
-        categoryItem.classList.toggle('choise')
-      })
-    })
-
-    button.addEventListener('click', () => {
-      console.log(newItems);
-      newItems.forEach((item) => {
-        this.catsWrap.innerHTML = '';
-        const elem = '<div class="new-cats__item '+ item +'" data-cat="'+ item +'">'+ item +'</div>';
-        this.catsWrap.insertAdjacentHTML('afterBegin', elem)
-        
-      })
-      this.catsBtn.classList.toggle('active')
-      this.categoriesBody.classList.toggle('active')
     })
   },
+  markCategory (element) {
+    element.classList.toggle('choise')
+  },
+  addCategory () {
+    const added = document.querySelectorAll('.new-categories__item.choise');
+    this.newItems = added;
+    this.catsWrap.innerHTML = '';
+    this.newItems.forEach((item) => {
+      const type = item.getAttribute('data-cat');
+      const name = item.innerHTML;
+      const elem = '<div class="new-cats__item" data-cat="'+ type +'">'+ name +'</div>';
+      this.catsWrap.insertAdjacentHTML('afterBegin', elem)
+    })
+    this.openCategories()
+  },
   textarea () {
-    $(this.body)
+    $(this.new)
     .on('focus', 'textarea', function(){
       const savedValue = this.value;
       this.value = '';
       this.baseScrollHeight = this.scrollHeight;
       this.value = savedValue;
-      this.coef = (this.classList.contains('new-header')) ? 43 : 24;
+      this.coef = (this.classList.contains('new-header')) ? 43 : 25;
         
     })
     .on('input', 'textarea', function(){
@@ -258,13 +270,15 @@ const post = {
     
   },
   openTypes (adder) {
-    const path = adder.parentNode;
-    const types = adder.childNodes[1].childNodes;
-    types.forEach( type => type.addEventListener('click', (newType) => this.changeType(path, adder, newType)) )
     adder.classList.toggle('active')
+    adder.addEventListener('click', (event) => {
+      console.log(event.target.classList[0]);
+      message()
+    })
     
   },
-  changeType (path, adder, newType) {    
+  changeType (path, adder, newType) {  
+      
     path.classList.remove('paragraph')
   },
   newTextarea () {
@@ -303,5 +317,17 @@ const post = {
       })
     })
      
+  },
+  changeState () {
+    this.new.classList.toggle('hidden');
   }
+}
+
+
+function message () {
+  const block = document.querySelector('.message');
+  block.classList.toggle('hidden')
+  setTimeout(() => {
+    block.classList.toggle('hidden')
+  }, 1500)
 }
