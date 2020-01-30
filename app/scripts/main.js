@@ -2,7 +2,8 @@
 
 window.onload = () => {
   forum.init()
-  panel()
+  panel.init()
+  post.init()
 }
 
 
@@ -141,12 +142,166 @@ const forum = {
 }
 
 
-const panel = () => {
-  const button = document.querySelector('.menu-user'),
-  panel = document.querySelector('.panel');
-  button.addEventListener('click', () => {
-    panel.classList.toggle('active');
-  })
+const panel = {
+  init () {
+    this.catcheDOM()
+    this.bindEvents()
+    this.newPost.classList.toggle('hidden');
+  },
+  catcheDOM () {
+    this.button = document.querySelector('.menu-user');
+    this.panel = document.querySelector('.panel');
+    this.buttonNew = document.querySelector('.menu-add');
+    this.buttonClose = document.querySelector('.new-close');
+    this.newPost = document.querySelector('.new');
+  },
+  bindEvents () {
+    this.button.addEventListener('click', () => {
+      this.panel.classList.toggle('active');
+    })
+    this.buttonNew.addEventListener('click', () => {      
+      this.newPost.classList.toggle('hidden');
+    })
+    this.buttonClose.addEventListener('click', () => {      
+      this.newPost.classList.toggle('hidden');
+    })
+  }
 }
 
 
+const post = {
+  init () {
+    this.catcheDOM()
+    this.bindEvents()
+    this.textarea()
+    this.newTextarea()
+  },
+  catcheDOM () {
+    this.body = document.querySelector('.new');
+    this.types = document.querySelectorAll('.new-add');
+    this.cats = document.querySelectorAll('.new-cats .new-cats__item');
+    this.catsWrap = document.querySelector('.new-cats');    
+    this.catsBtn = document.querySelector('.new-cats__add');    
+    this.categoriesBody = document.querySelector('.new-categories');
+    
+  },
+  bindEvents () {
+    this.types.forEach((adder) => adder.addEventListener('click', () => this.openTypes(adder)))
+    this.cats.forEach((cat) => cat.addEventListener('click', () => cat.remove() ));
+    this.catsBtn.addEventListener('click', () => this.categories())
+  },
+  categories () {
+    const button = document.querySelector('.new-categories__button');
+    const categoryItems = document.querySelectorAll('.new-categories__item');
+    this.cats = document.querySelectorAll('.new-cats .new-cats__item');
+    let newItems = [];
+    this.catsBtn.classList.toggle('active')
+    this.categoriesBody.classList.toggle('active')
+
+    categoryItems.forEach(categoryItem => {
+
+      this.cats.forEach(cat => {
+        if (categoryItem.classList.contains(cat.getAttribute('data-cat'))) {
+          newItems.push(cat.getAttribute('data-cat'))
+          categoryItem.classList.add('choise')
+        };
+      })
+
+      categoryItem.addEventListener('click', () => {
+        if (categoryItem.classList.contains('choise')){
+          const index = newItems.indexOf(categoryItem.getAttribute('data-cat'));
+          function removeInArray(arr, ...args){
+            var set = new Set(args); 
+            return arr.filter((v, k) => !set.has(k));
+          }
+          newItems = removeInArray(newItems, index);
+          console.log('yes');
+          
+          
+        }else{
+          newItems.push(categoryItem.getAttribute('data-cat'))
+          console.log('no');
+          
+        }
+        categoryItem.classList.toggle('choise')
+      })
+    })
+
+    button.addEventListener('click', () => {
+      console.log(newItems);
+      newItems.forEach((item) => {
+        this.catsWrap.innerHTML = '';
+        const elem = '<div class="new-cats__item '+ item +'" data-cat="'+ item +'">'+ item +'</div>';
+        this.catsWrap.insertAdjacentHTML('afterBegin', elem)
+        
+      })
+      this.catsBtn.classList.toggle('active')
+      this.categoriesBody.classList.toggle('active')
+    })
+  },
+  textarea () {
+    $(this.body)
+    .on('focus', 'textarea', function(){
+      const savedValue = this.value;
+      this.value = '';
+      this.baseScrollHeight = this.scrollHeight;
+      this.value = savedValue;
+      this.coef = (this.classList.contains('new-header')) ? 43 : 24;
+        
+    })
+    .on('input', 'textarea', function(){
+        var minRows = this.getAttribute('data-min-rows')|0, rows;        
+        this.rows = minRows;
+        rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / this.coef);
+        this.rows = minRows + rows;
+    });
+    
+  },
+  openTypes (adder) {
+    const path = adder.parentNode;
+    const types = adder.childNodes[1].childNodes;
+    types.forEach( type => type.addEventListener('click', (newType) => this.changeType(path, adder, newType)) )
+    adder.classList.toggle('active')
+    
+  },
+  changeType (path, adder, newType) {    
+    path.classList.remove('paragraph')
+  },
+  newTextarea () {
+    const items = document.querySelectorAll('textarea.autoExpand');
+    console.log(items);
+    items.forEach((elem) => {
+      const container = elem.parentElement;
+      elem.addEventListener('keyup', (key) => {
+        if (key.code === "Enter"){
+          if (container.nextElementSibling.classList.contains('paragraph')){
+            elem.blur()
+            container.nextElementSibling.focus()
+            console.log('focus');
+            
+          }else{
+          
+          const newTxt = `<div class="new-item paragraph">
+            <div class="new-add">
+              <ul>
+                <li class="paragraph">
+                  <img src="assets/images/content-p.svg">
+                </li>
+                <li class="image">
+                  <img src="assets/images/content-i.svg">
+                </li>
+              </ul>
+            </div>
+            <textarea class="autoExpand" rows="1"></textarea>
+          </div>`;
+          container.insertAdjacentHTML('afterEnd', newTxt);
+          container.nextElementSibling.childNodes[3].focus()
+          console.log('new')
+        }
+      }
+        
+      })
+    })
+     
+  }
+}

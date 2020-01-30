@@ -9,7 +9,10 @@
     display flex
     justify-content center
     padding-top 100px
+    overflow hidden
     overflow-y scroll
+    pointer-events all
+    t()
     textarea
         border none
 
@@ -24,8 +27,14 @@
         +placeholder()
             color #a9a9a9
     
-    &-cats
+    &-wrap
+        flex()
+        align-items center
         margin-top 40px
+        position relative
+        z-index 2
+    
+    &-cats
         flex()
         t()
 
@@ -43,17 +52,39 @@
             &.snowboard
                 background-color #fd9e80
             &:hover
-                transform rotate(180deg)
+                background-color #eb5353
+            
         
         &__add
             height 32px
             width 32px
             border-radius 50%
             background linear-gradient(15deg, #52a3ca, #5d55ad)
-            center()
             cursor pointer
+            position relative
+            center()
             img
                 width 17px
+                position relative
+                z-index 2
+            &:after
+                content ''
+                position absolute
+                left 0
+                right 0
+                top 0
+                bottom 0
+                border-radius 50%
+                background-color #52a3ca
+                transition 0.8s all
+            &.active
+                pointer-events none
+                img
+                    opacity 0
+                    pointer-events none
+                &:after
+                    transform scale(80)
+                    pointer-events none
     
     &-content
         width 100%
@@ -65,6 +96,7 @@
     
     &-item
         width 100%
+        position relative
         margin-top 32px
         textarea
             font-size 16px
@@ -85,12 +117,19 @@
         
         &.paragraph
             textarea
-                height 62px
+                // height 62px
+        
+        
+        &:hover
+            .new-add
+                pointer-events all
+                opacity 1
     
     &-close
         position fixed
         right 100px
         top 40px
+        cursor pointer
         img
             width 50px
     
@@ -98,3 +137,100 @@
         opacity 0
         pointer-events none
         position absolute
+        width 30px
+        height 30px
+        border-radius 50%
+        background-color #f0f0f0
+        background-image url('../images/icon_plus-b.svg')
+        background-size 40%
+        background-repeat no-repeat
+        background-position center
+        cursor pointer
+        left -50px
+        t()
+        &:after
+            content ''
+            position absolute
+            right -40px
+            width 50px
+            height 60px
+            top 0
+        ul
+            opacity 0
+            pointer-events none
+            position absolute
+            left 0
+            bottom 50px
+            background-color #f0f0f0
+            padding 10px
+            border-radius 10px
+            display flex
+            &:after
+                content ''
+                position absolute
+                left 0
+                right 0
+                bottom -50px
+                height 50px
+
+            li
+                img
+                    max-height 30px
+                    width 30px
+        
+        &.active
+            ul
+                opacity 1
+                pointer-events all
+    
+    &-categories
+        position fixed
+        left 0
+        right 0
+        top 0
+        bottom 0
+        z-index 2
+        center()
+        opacity 0
+        pointer-events none
+        t()
+
+        &.active
+            opacity 1
+            pointer-events all
+
+        .center
+            max-width 750px
+            width 100%
+            flex()
+        
+        &__item
+            margin-right 10px
+            margin-bottom 10px
+            padding 7px 20px
+            color white
+            border-radius 30px
+            font-size 22px
+            color white
+            font-weight 600
+            cursor pointer
+            t()
+            &:hover
+                background-color #fd9e80
+            &.choise
+                background-color #fd9e80
+                &:hover
+                    background-color red
+        
+        &__button
+            position absolute
+            right 30px
+            bottom 30px
+            padding 8px 18px
+            background-color #2d2c3a
+            border-radius 20px
+            color white
+            font-size 18px
+            font-weight 600
+            cursor pointer
+            t()

@@ -43,7 +43,7 @@
 
 	<body>
 		<main class="main">
-			<section class="new">
+			<section class="new hidden">
 				<div class="new-panel">
 					<div class="new-close">
 						<img src="assets/images/icon_close.svg">
@@ -52,9 +52,11 @@
 				<div class="new-content">
 					<div class="new-center">
 						<textarea class="new-header" placeholder="Однажды на споте..." rows="1"></textarea>
-						<div class="new-cats">
-							<div class="new-cats__item ski">лыжи</div>
-							<div class="new-cats__item snowboard">сноуборд</div>
+						<div class="new-wrap">
+							<div class="new-cats">
+								<div class="new-cats__item ski" data-cat="ski">лыжи</div>
+								<div class="new-cats__item snowboard" data-cat="snowboard">сноуборд</div>
+							</div>
 							<div class="new-cats__add">
 								<img src="assets/images/icon_plus.svg">
 							</div>
@@ -71,7 +73,7 @@
 										</li>
 									</ul>
 								</div>
-								<textarea></textarea>
+								<textarea rows="1"></textarea>
 							</div>
 							<div class="new-item image">
 								<div class="new-add">
@@ -88,6 +90,17 @@
 									<img class="new-item__image" src="https://images.unsplash.com/photo-1579956774928-90599249f90f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=744&amp;q=80">
 								</div>
 							</div>
+						</div>
+						<div class="new-categories">
+							<div class="center">
+								<div class="new-categories__item ski" data-cat="ski">Лыжи</div>
+								<div class="new-categories__item snowboard" data-cat="snowboard">Snowboard</div>
+								<div class="new-categories__item skate" data-cat="skate">Скейтбординг</div>
+								<div class="new-categories__item surf" data-cat="surf">Серфинг</div>
+								<div class="new-categories__item surf" data-cat="surf">Виндсерфинг</div>
+								<div class="new-categories__item surf" data-cat="surf">Лонгборд</div>
+							</div>
+							<div class="new-categories__button">Добавить</div>
 						</div>
 					</div>
 				</div>

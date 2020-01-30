@@ -1,13 +1,14 @@
-section.new
+section.new.hidden
     .new-panel
         .new-close
             img(src="assets/images/icon_close.svg")
     .new-content
         .new-center
             textarea.new-header(placeholder="Однажды на споте..." rows="1")
-            .new-cats
-                .new-cats__item.ski лыжи
-                .new-cats__item.snowboard сноуборд
+            .new-wrap
+                .new-cats
+                    .new-cats__item.ski(data-cat="ski") лыжи
+                    .new-cats__item.snowboard(data-cat="snowboard") сноуборд
                 .new-cats__add
                     img(src="assets/images/icon_plus.svg")
             .new-workplace
@@ -18,7 +19,7 @@ section.new
                                 img(src="assets/images/content-p.svg")
                             li.image
                                 img(src="assets/images/content-i.svg")
-                    textarea
+                    textarea(rows="1")
                 .new-item.image
                     .new-add
                         ul
@@ -28,3 +29,13 @@ section.new
                                 img(src="assets/images/content-i.svg")
                     .new-item__container
                         img(src="https://images.unsplash.com/photo-1579956774928-90599249f90f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=744&q=80").new-item__image
+            
+            .new-categories
+                .center
+                    .new-categories__item.ski(data-cat="ski") Лыжи
+                    .new-categories__item.snowboard(data-cat="snowboard") Snowboard
+                    .new-categories__item.skate(data-cat="skate") Скейтбординг
+                    .new-categories__item.surf(data-cat="surf") Серфинг
+                    .new-categories__item.surf(data-cat="surf") Виндсерфинг
+                    .new-categories__item.surf(data-cat="surf") Лонгборд
+                .new-categories__button Добавить
