@@ -2,8 +2,7 @@ const gulp          = require('gulp'),
       plumber       = require('gulp-plumber'),
       rigger       = require('gulp-rigger'),
       uglify       = require('gulp-uglify-es').default,
-      errorHandler  = require('../errorHandler'),
-      pkg           = require('../../package.json');
+      errorHandler  = require('../errorHandler');
 
 gulp.task('scripts', async () => {
   gulp.src('app/scripts/**/*.js')

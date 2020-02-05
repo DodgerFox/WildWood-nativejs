@@ -124,9 +124,8 @@
             img
                 width 100%
         
-        &.paragraph
-            textarea
-                // height 62px
+        &.image
+            min-height 200px
         
         
         &:hover
@@ -245,3 +244,30 @@
             font-weight 600
             cursor pointer
             t()
+    
+    &-loader
+        opacity 0
+        position absolute
+        pointer-events none
+        + label
+            left 0
+            right 0
+            top 0
+            bottom 0
+            position absolute
+            background #f0f0f0
+            display block
+            border-radius 10px
+            center()
+    
+    &-publish
+        position absolute
+        right 200px
+        padding 12px 20px
+        top 45px
+        background #52cab9
+        border-radius 10px
+        font-weight 600
+        font-size 16px
+        color white
+        cursor pointer

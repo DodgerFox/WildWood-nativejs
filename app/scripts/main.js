@@ -3,7 +3,6 @@
 window.onload = () => {
   forum.init()
   menu.init()
-  // post.init()
 }
 
 
@@ -25,22 +24,22 @@ const forum = {
     this.helpers();
   },
   catcheDOM () {
-    this.input = document.querySelector('.search-input input[type="search"]');
-    this.list = document.querySelector('.timeline-body');
-    this.detail = document.querySelector('.article-wrap');
+    this.$input = document.querySelector('.search-input input[type="search"]');
+    this.$list = document.querySelector('.timeline-body');
+    this.$detail = document.querySelector('.article-wrap');
   },
   bindEvents () {
     this.inputHandler()
     this.clickHandler()
   },
   inputHandler () {
-    this.input.addEventListener('keyup', () => { 
-      const searchValue = this.input.value.toUpperCase();
+    this.$input.addEventListener('keyup', () => { 
+      const searchValue = this.$input.value.toUpperCase();
       (searchValue.length === 0 || searchValue.length > 1) ? this.filter() : '';
     })
   },
   clickHandler () {
-    this.list.addEventListener('click', (event) => {
+    this.$list.addEventListener('click', (event) => {
       const post = event.target;
       (post.className === 'post') ? this.openArticle(post) : '';
     })
@@ -58,8 +57,8 @@ const forum = {
     }); 
   },
   openArticle (post) {
-    this.detail.innerHTML = '';
-    this.posts.forEach((post) => { post.classList.remove('active') })
+    this.$detail.innerHTML = '';
+    this.$posts.forEach((post) => { post.classList.remove('active') })
     post.classList.toggle('active');
     this.articles.forEach((article) => {
       if (article.id == post.getAttribute('data-id')){
@@ -86,13 +85,13 @@ const forum = {
               </div>
             </div>
           </div>`;
-        this.detail.insertAdjacentHTML("beforeEnd", header);
+        this.$detail.insertAdjacentHTML("beforeEnd", header);
       }
     })
     
   },
   filter () {
-    const searchValue = this.input.value.toUpperCase();
+    const searchValue = this.$input.value.toUpperCase();
     this.filtered =  this.articles.filter((article) => {
       let prop = (searchValue[0] === '#') ? article.tags.toUpperCase() : article.title.toUpperCase();
       return prop.indexOf(searchValue) > -1;
@@ -100,12 +99,12 @@ const forum = {
     if (this.filtered.length > 0) {
       this.render()
     } else {
-      this.list.innerHTML = '';
-      this.list.insertAdjacentHTML("beforeEnd", "<p>Нетъ</p>");
+      this.$list.innerHTML = '';
+      this.$list.insertAdjacentHTML("beforeEnd", "<p>Нетъ</p>");
     }
   },
   render () {
-    this.list.innerHTML = '';
+    this.$list.innerHTML = '';
       
       this.filtered.forEach( ( article ) => {
         
@@ -133,10 +132,10 @@ const forum = {
                 </div>
               </article>`;
       
-        this.list.insertAdjacentHTML("beforeEnd", element);
+        this.$list.insertAdjacentHTML("beforeEnd", element);
       })
     
-    this.posts = document.querySelectorAll('.post');
+    this.$posts = document.querySelectorAll('.post');
   }
   
 }
@@ -148,26 +147,25 @@ const menu = {
     this.bindEvents()
   },
   catcheDOM () {
-    this.button = document.querySelector('.menu-user');
-    this.menu = document.querySelector('.menu');
-    this.panel = document.querySelector('.panel');
-    this.newPost = document.querySelector('.new');
+    this.$button = document.querySelector('.menu-user');
+    this.$menu = document.querySelector('.menu');
+    this.$panel = document.querySelector('.panel');
+    this.$newPost = document.querySelector('.new');
   },
   bindEvents () {
-    this.menu.addEventListener('click', (event) => {
+    this.$menu.addEventListener('click', (event) => {
       this.clickHandler(event)      
     })
   },
   clickHandler (event) {
     const element = event.target;
-    console.log(element);
     
     switch (element.className) {
       case ('menu-add') :
         post.init()
         break;
       case ('menu-user') :
-        this.panel.classList.toggle('active');
+        this.$panel.classList.toggle('active');
         break;
       }
   }
@@ -191,6 +189,7 @@ const post = {
   },
   bindEvents () {
     this.new.addEventListener('click', (event) => { this.clickHandler() })
+    this.new.addEventListener('keyup', (event) => { this.newTextarea(event) })
   },
   clickHandler () {
     const element = event.target;
@@ -211,6 +210,9 @@ const post = {
       case 'new-add':
         this.openTypes(element)
         break;
+      case 'new-publish':
+        this.publish()
+        break;
       case 'new-close':
         this.changeState()
         break;
@@ -227,7 +229,6 @@ const post = {
     this.openCategories()
 
     categoryItems.forEach(categoryItem => {
-
       this.cats.forEach(cat => {
         if (categoryItem.getAttribute('data-cat') === cat.getAttribute('data-cat')) {
           this.newItems.push(cat.getAttribute('data-cat'))
@@ -272,29 +273,49 @@ const post = {
   openTypes (adder) {
     adder.classList.toggle('active')
     adder.addEventListener('click', (event) => {
-      console.log(event.target.classList[0]);
-      message()
+      this.changeType(event)
     })
     
   },
-  changeType (path, adder, newType) {  
-      
-    path.classList.remove('paragraph')
-  },
-  newTextarea () {
-    const items = document.querySelectorAll('textarea.autoExpand');
-    console.log(items);
-    items.forEach((elem) => {
-      const container = elem.parentElement;
-      elem.addEventListener('keyup', (key) => {
-        if (key.code === "Enter"){
-          if (container.nextElementSibling.classList.contains('paragraph')){
-            elem.blur()
-            container.nextElementSibling.focus()
-            console.log('focus');
-            
-          }else{
+  changeType (event) {
+    const typer = event.target,
+          element = typer.parentNode.parentNode.parentNode,
+          type = typer.className;
+    let html = '';
+    
+    if (type === 'image'){
+        html = `
+        <input type="file" class="new-loader" id="fileElem`+ '1' +`" multiple accept="image/*">
+        <label for="fileElem`+ '1' +`">
+          <img src="assets/images/add-image.svg" width="90px">
+        </label>
+        <div class="new-add">
+          <ul>
+            <li class="paragraph">
+              <img src="assets/images/content-p.svg">
+            </li>
+            <li class="image">
+              <img src="assets/images/content-i.svg">
+            </li>
+            </ul>
+            </div>
+            <div class="new-item__container">
+        </div>`;
+    }
+    element.innerHTML = html;
+    element.classList.remove('paragraph')
+    element.classList.add('image')
           
+  },
+  newTextarea (event) {
+    const element = event.target;
+    const container = element.parentElement;
+      
+      if (event.key === "Enter"){
+          if (container.nextElementSibling){
+            container.nextElementSibling.focus()
+          }
+      else{  
           const newTxt = `<div class="new-item paragraph">
             <div class="new-add">
               <ul>
@@ -310,16 +331,93 @@ const post = {
           </div>`;
           container.insertAdjacentHTML('afterEnd', newTxt);
           container.nextElementSibling.childNodes[3].focus()
-          console.log('new')
         }
+      }else if (event.key === "Backspace" && element.value === ''){
+        element.blur()
+        container.previousElementSibling.getElementsByTagName('textarea')[0].focus()
+        container.parentNode.removeChild(container)
       }
         
-      })
-    })
      
   },
   changeState () {
     this.new.classList.toggle('hidden');
+  },
+  publish () {
+    const header = document.querySelector('.new-header'),
+          cats = document.querySelectorAll('.new-cats__item'),
+          blocks = document.querySelectorAll('.new-item'),
+          title = header.value,
+          categories = [],
+          items = [];
+          
+          blocks.forEach( block => {
+            let element
+            if (block.classList.contains('paragraph')){
+              element = ['p', block.querySelector('textarea').value];
+            }else{
+              element = ['img', block.querySelector('img').src];
+            }
+              items.push( element )
+          });
+          cats.forEach( category => {
+                categories.push( category.getAttribute('data-cat') )
+          });
+    
+    this.article = {
+      "title": title,
+      "author": "John Jackson",
+      "authorId": 1,
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+      "date": "Только что",
+      "views": "12",
+      "comments": "",
+      "cats": categories,
+      "tags": "#Стори",
+      "hot": true,
+      "open": true,
+      "cover": "https://images.unsplash.com/photo-1577993625454-1dec02cedd4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=359&q=80",  
+      "content": items,
+    }
+    
+    if (title!='' && categories!=[] && items!=[]){
+      this.renderPost()
+      this.changeState()
+    }else{
+      message();
+    }
+  },
+  renderPost () {
+    const $body = document.querySelector('.timeline-body');
+    const article = this.article;
+    const cats = article.cats;
+    let categories = '';
+    
+    cats.forEach(element => categories = categories + `<div class="category-item `+ element +`"></div>`)
+
+    const articleHtml = 
+      `<article class="post" data-id="` + article.id + `"> 
+        <div class="post-container">
+        <p class="post-title">` + article.title + `</p>
+        <div class="category">`
+        + categories +
+        `</div>',
+        <div class="info">
+          <div class="info-wrap">
+            <p class="info__tag">` + article.tags + `</p>
+            <p class="info__date">` + article.date + `</p>
+          </div>
+          <div class="info-wrap">
+            <a class="info__flame" href="#">
+              <img src="assets/images/icon_flame.svg" class="mCS_img_loaded">
+            </a>
+            <a class="info__user" href="#" style="background-image: url('` + article.avatar + `');"></a>
+          </div>
+        </div>
+        </div>
+      </article>`;
+
+    $body.insertAdjacentHTML("afterbegin", articleHtml);
   }
 }
 
@@ -331,3 +429,4 @@ function message () {
     block.classList.toggle('hidden')
   }, 1500)
 }
+

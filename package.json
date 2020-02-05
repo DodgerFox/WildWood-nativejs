@@ -12,9 +12,11 @@
     "selectize.js": "^0.12.12"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.4",
     "browser-sync": "^2.26.7",
     "del": "^5.1.0",
     "gulp-autoprefixer": "^7.0.1",
+    "gulp-babel": "^8.0.0",
     "gulp-cached": "^1.1.1",
     "gulp-changed": "^4.0.2",
     "gulp-combine-mq": "^0.4.0",
