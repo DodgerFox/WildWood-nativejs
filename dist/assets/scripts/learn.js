@@ -1,0 +1,1 @@
+"use strict";class User{constructor(e,s){this.name=e,this.age=s}getYear(){return 2020-this.age}}const Vasya=new User("Вася",24),Andre=new User("Андре",34);function Person(e){this.name=e,this.greeting=function(){alert("Hi! I'm "+this.name+".")}}

@@ -3,6 +3,7 @@
 window.onload = () => {
   forum.init()
   menu.init()
+  post.init()
 }
 
 
@@ -90,6 +91,10 @@ const forum = {
     })
     
   },
+  addData (article){
+    article.id = this.articles.length + 1;
+    this.articles.push(article)
+  },
   filter () {
     const searchValue = this.$input.value.toUpperCase();
     this.filtered =  this.articles.filter((article) => {
@@ -157,12 +162,10 @@ const menu = {
       this.clickHandler(event)      
     })
   },
-  clickHandler (event) {
-    const element = event.target;
-    
-    switch (element.className) {
+  clickHandler (event) {    
+    switch (event.target.className) {
       case ('menu-add') :
-        post.init()
+        post.changeState()
         break;
       case ('menu-user') :
         this.$panel.classList.toggle('active');
@@ -175,10 +178,8 @@ const menu = {
 const post = {
   init () {
     this.catcheDOM()
-    this.changeState()
     this.bindEvents()
-    this.textarea()
-    this.newTextarea()
+    this.textarea() 
   },
   catcheDOM () {
     this.new = document.querySelector('.new');
@@ -193,6 +194,7 @@ const post = {
   },
   clickHandler () {
     const element = event.target;
+    
     
     switch (event.target.classList[0]) {
       case 'new-cats__item':
@@ -348,23 +350,23 @@ const post = {
           cats = document.querySelectorAll('.new-cats__item'),
           blocks = document.querySelectorAll('.new-item'),
           title = header.value,
-          categories = [],
-          items = [];
+          categories = []
+    let items = '<h1>'+ title +'</h1>';
           
           blocks.forEach( block => {
             let element
             if (block.classList.contains('paragraph')){
-              element = ['p', block.querySelector('textarea').value];
+              element = '<p>'+ block.querySelector('textarea').value + '</p>';
             }else{
-              element = ['img', block.querySelector('img').src];
+              element = '<img src ="'+ block.querySelector('img').src + '" />';
             }
-              items.push( element )
+            items = items + element;
           });
           cats.forEach( category => {
                 categories.push( category.getAttribute('data-cat') )
           });
     
-    this.article = {
+    const article = {
       "title": title,
       "author": "John Jackson",
       "authorId": 1,
@@ -381,15 +383,15 @@ const post = {
     }
     
     if (title!='' && categories!=[] && items!=[]){
-      this.renderPost()
+      forum.addData(article)
+      this.renderPost(article)
       this.changeState()
     }else{
       message();
     }
   },
-  renderPost () {
+  renderPost (article) {
     const $body = document.querySelector('.timeline-body');
-    const article = this.article;
     const cats = article.cats;
     let categories = '';
     
