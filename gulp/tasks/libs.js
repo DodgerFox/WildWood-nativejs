@@ -11,9 +11,9 @@ gulp.task('libs', () => {
 			// component('matter-js/build/matter.min.js'),
 			// component('devicejs/lib/device.min.js'),
 			//component('jquery.csssr.validation/jquery.csssr.validation.js'),
+			component('jquery-mousewheel/jquery.mousewheel.js'),
 			component('malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'),
 			// component('anchor-js/anchor.min.js'),
-			// component('jquery-mousewheel/jquery.mousewheel.min.js'),
 
 			// component('wow/dist/wow.min.js'),
 			// component('slick-carousel/slick/slick.min.js'),

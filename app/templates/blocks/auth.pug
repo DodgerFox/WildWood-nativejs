@@ -1,0 +1,17 @@
+section.auth
+    .auth-close
+        img(src="assets/images/icon_close.svg")
+    .wrap
+        .auth-container
+            p.auth-title Регистрация
+            p.auth-text Так просто стать ближе
+            form.auth-form
+                input.auth-form__input(type="email" placeholder="hedgehogofmom@gmail.com" required)
+                input.auth-form__input(type="password" placeholder="Приложи сетчатку глаза" required)
+                input.auth-form__input(type="password" placeholder="Приложи сетчатку носа" required)
+                .auth-form__checkbox
+                    input(type="checkbox" required)#checkbox-argee
+                    label(for="checkbox-argee") Вы согласны с политикой <a href="#">обработки персональных данных</a>
+                input.auth-form__button(type="submit" value="Начать")
+    
+    .auth-link Войти

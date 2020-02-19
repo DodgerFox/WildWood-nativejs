@@ -43,6 +43,29 @@
 
 	<body>
 		<main class="main">
+			<section class="auth">
+				<div class="auth-close">
+					<img src="assets/images/icon_close.svg">
+				</div>
+				<div class="wrap">
+					<div class="auth-container">
+						<p class="auth-title">Регистрация</p>
+						<p class="auth-text">Так просто стать ближе</p>
+						<form class="auth-form">
+							<input class="auth-form__input" type="email" placeholder="hedgehogofmom@gmail.com" required>
+							<input class="auth-form__input" type="password" placeholder="Приложи сетчатку глаза" required>
+							<input class="auth-form__input" type="password" placeholder="Приложи сетчатку носа" required>
+							<div class="auth-form__checkbox">
+								<input type="checkbox" required id="checkbox-argee">
+								<label for="checkbox-argee">Вы согласны с политикой <a href="#">обработки персональных данных</a>
+								</label>
+							</div>
+							<input class="auth-form__button" type="submit" value="Начать">
+						</form>
+					</div>
+				</div>
+				<div class="auth-link">Войти</div>
+			</section>
 			<section class="new hidden">
 				<div class="new-panel">
 					<div class="new-publish">Опубликовать</div>
@@ -92,7 +115,7 @@
 				<a class="logo" href="#">
 					<img src="assets/images/logo.png">
 				</a>
-				<div class="menu-user" style="background-image: url('assets/images/user.jpg');"></div>
+				<div class="menu-auth" style="background-image: url('assets/images/user.jpg');"></div>
 				<div class="menu-add">
 					<img src="assets/images/icon_plus.svg">
 				</div>
